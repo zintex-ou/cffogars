@@ -14,7 +14,11 @@ export default async function Equip({ params }: { params: Promise<{ lang: string
   const squad = [...feed.squad].sort((a, b) => POS_ORDER.indexOf(a.position) - POS_ORDER.indexOf(b.position) || (a.dorsal ?? 999) - (b.dorsal ?? 999) || a.surname.localeCompare(b.surname));
   const players = squad.map((p) => ({ ...p, photo: leagueAsset(p.photo), posLabel: posLabel(lang, p.position) }));
   const stats = [...squad].sort((a, b) => b.goals - a.goals || b.assists - a.assists || b.pj - a.pj);
-  const staff = [...STAFF.map((s) => ({ name: s.name, role: roleLabel(lang, s.role), photo: s.photo ?? null })), ...feed.staff.map((s) => ({ name: s.name, role: roleLabel(lang, s.role), photo: null }))];
+  const staff: { name: string; role: string; photo: string | null }[] = [];
+  for (const s of [...STAFF.map((s) => ({ name: s.name, role: s.role, photo: s.photo ?? null })), ...feed.staff.map((s) => ({ name: s.name, role: s.role, photo: null }))]) {
+    const ex = staff.find((x) => x.name.toLowerCase() === s.name.toLowerCase());
+    if (ex) ex.role += ` · ${roleLabel(lang, s.role)}`; else staff.push({ name: s.name, role: roleLabel(lang, s.role), photo: s.photo });
+  }
   const chips = ["all", ...POS_ORDER].map((k) => ({ k, label: k === "all" ? t.all : posLabel(lang, k) }));
   return (
     <main>

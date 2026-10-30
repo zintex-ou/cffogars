@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
-import { addEntry, listEntries, newChallenge, verifyChallenge, consumeToken, recentFromIp, hideEntry } from "@/lib/guestbook";
+import { cookies } from "next/headers";
+import { addEntry, addEntryUser, listEntries, newChallenge, verifyChallenge, consumeToken, recentFromIp, hideEntry, userFromCookie } from "@/lib/guestbook";
 import { isLang } from "@/lib/i18n";
 
 export const dynamic = "force-dynamic";
@@ -20,11 +21,13 @@ export async function POST(req: Request) {
   // honeypot + too-fast submission (< 3 s after the form was loaded)
   if (website.trim() !== "") return NextResponse.json({ ok: true, id: 0 });
   if (ts && Date.now() - Number(ts) < 3000) return NextResponse.json({ ok: true, id: 0 });
-  const n = name.trim().slice(0, 60), m = message.trim().slice(0, 1500);
+  const user = userFromCookie((await cookies()).get("gbu")?.value);
+  const n = (user ? user.nick : name).trim().slice(0, 60), m = message.trim().slice(0, 1500);
   if (n.length < 2 || m.length < 3) return NextResponse.json({ error: "invalid" }, { status: 400 });
   if (links.test(m) || links.test(n) || (m.match(/http/gi) ?? []).length > 0) return NextResponse.json({ error: "invalid" }, { status: 400 });
   const ip = ipOf(req);
   if (recentFromIp(ip, 10) >= 3) return NextResponse.json({ error: "rate" }, { status: 429 });
+  if (user) { const id = addEntryUser({ userId: user.id, name: n, message: m, lang: isLang(lang) ? lang : "ca", ip }); return NextResponse.json({ ok: true, id }); }
   if (!verifyChallenge(token, answer)) return NextResponse.json({ error: "captcha" }, { status: 400 });
   if (!consumeToken(token)) return NextResponse.json({ error: "captcha" }, { status: 400 });
   const id = addEntry({ name: n, message: m, lang: isLang(lang) ? lang : "ca", ip });

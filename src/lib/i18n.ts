@@ -111,6 +111,18 @@ const D = {
   gbErrRate: ["Demasiados mensajes seguidos. Espera un momento.", "Massa missatges seguits. Espera un moment.", "Too many messages in a row. Please wait a moment."],
   gbErrInvalid: ["Revisa el nombre y el mensaje.", "Revisa el nom i el missatge.", "Please check the name and the message."],
   gbErrGeneric: ["No se ha podido publicar. Inténtalo más tarde.", "No s'ha pogut publicar. Torna-ho a provar més tard.", "Could not publish. Please try later."],
+  gbLogin: ["Entrar", "Entrar", "Log in"],
+  gbRegister: ["Crear cuenta", "Crear compte", "Create account"],
+  gbLogout: ["Salir", "Sortir", "Log out"],
+  gbNick: ["Apodo", "Sobrenom", "Nickname"],
+  gbPass: ["Contraseña", "Contrasenya", "Password"],
+  gbAccountHint: ["Jugadores: cread una cuenta para que se vea quién escribe. Los invitados pueden escribir sin registrarse.", "Jugadors: creeu un compte perquè es vegi qui escriu. Els convidats poden escriure sense registrar-se.", "Players: create an account so everyone can see who's writing. Guests can post without registering."],
+  gbSignedAs: ["Escribes como", "Escrius com a", "Posting as"],
+  gbGuest: ["Invitado", "Convidat", "Guest"],
+  gbErrNick: ["Apodo: 2–24 letras o cifras.", "Sobrenom: 2–24 lletres o xifres.", "Nickname: 2–24 letters or digits."],
+  gbErrPass: ["Contraseña: mínimo 6 caracteres.", "Contrasenya: mínim 6 caràcters.", "Password: at least 6 characters."],
+  gbErrTaken: ["Este apodo ya existe.", "Aquest sobrenom ja existeix.", "That nickname is taken."],
+  gbErrLogin: ["Apodo o contraseña incorrectos.", "Sobrenom o contrasenya incorrectes.", "Wrong nickname or password."],
   gbNewCaptcha: ["Otra pregunta", "Una altra pregunta", "Another question"],
 } satisfies Record<string, Tri>;
 
@@ -129,7 +141,7 @@ const POS: Record<string, Tri> = {
   MIG: ["Centrocampista", "Migcampista", "Midfielder"],
   DAV: ["Delantero", "Davanter", "Forward"],
 };
-const ROLES: Record<string, Tri> = { delegat: ["Delegado", "Delegat", "Delegate"], entrenador: ["Entrenador", "Entrenador", "Head coach"], president: ["Presidente", "President", "President"], segon: ["Segundo entrenador", "Segon entrenador", "Assistant coach"], fisio: ["Fisioterapeuta", "Fisioterapeuta", "Physio"] };
+const ROLES: Record<string, Tri> = { delegat: ["Delegado", "Delegat", "Delegate"], entrenador: ["Entrenador", "Entrenador", "Head coach"], president: ["Presidente", "President", "President"], director: ["Director deportivo", "Director esportiu", "Sporting director"], segon: ["Segundo entrenador", "Segon entrenador", "Assistant coach"], fisio: ["Fisioterapeuta", "Fisioterapeuta", "Physio"] };
 export const roleLabel = (lang: Lang, r: string) => ROLES[r.toLowerCase()]?.[IDX[lang]] ?? r;
 export const POS_ORDER = ["POR", "DEF", "MIG", "DAV"];
 export const posLabel = (lang: Lang, p: string) => POS[p]?.[IDX[lang]] ?? p;

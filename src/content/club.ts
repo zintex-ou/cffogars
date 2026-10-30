@@ -46,7 +46,11 @@ export const TIMELINE: { y: string; title: Tri; text: Tri }[] = [];
 export const PALMARES: { n: string; label: Tri; sub: string }[] = [];
 
 /** Club staff not in the league DB (role keys: entrenador, segon, president, fisio, delegat). Delegates come from the league automatically. */
-export const STAFF: { name: string; role: string; photo?: string }[] = [];
+export const STAFF: { name: string; role: string; photo?: string }[] = [
+  { name: "Ievgen Zinchenko", role: "president" },
+  { name: "Viktor Tiurin", role: "director" },
+  { name: "Oleksandr Padaliuk", role: "entrenador" },
+];
 
 export type Sponsor = { name: string; url?: string; logo?: string /* /images/sponsors/x.png */ };
 export const SPONSORS_MAIN: Sponsor[] = [

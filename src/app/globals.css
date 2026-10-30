@@ -352,3 +352,11 @@ table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nu
 .vcard .info { padding: 14px 16px 16px; border-top: 5px solid var(--green); display: flex; flex-direction: column; gap: 4px; }
 .vcard .info b { font-family: "Barlow Condensed"; font-weight: 800; font-size: 22px; line-height: 1.05; text-transform: uppercase; }
 .vcard .info span { font-size: 14px; color: var(--muted); }
+.gbacct { background: var(--green-light); padding: 14px 18px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px; font-size: 15px; color: var(--ink-2); }
+.gbacct .btns { display: flex; gap: 8px; }
+.gbacct button { border: 2px solid var(--green); background: #fff; color: var(--green); padding: 6px 12px; font-family: "Barlow Condensed"; font-weight: 800; font-size: 14px; letter-spacing: .1em; text-transform: uppercase; }
+.gbacct button.on, .gbacct button:hover { background: var(--green); color: #fff; }
+.gbe .nm { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; }
+.gbe .pl { font-size: 13px; color: var(--green); font-weight: 600; }
+.gbe .st, .gbacct .st { display: inline-block; margin-left: 6px; background: var(--green-dark); color: #fff; font-family: "Barlow Condensed"; font-weight: 700; font-size: 13px; letter-spacing: .06em; padding: 2px 8px; }
+.gbe.reg .who b { color: var(--green); }
