@@ -5,7 +5,7 @@ import { getFeed, LEAGUE_URL, LEAGUE_HOST, isMine, myScorers, mapUrl, matchUrl, 
 import { Badge, StandingsTable, NoData } from "@/components/league";
 import { Sponsors } from "@/components/Footer";
 import { CLUB } from "@/content/club";
-import { VIDEOS } from "@/content/videos";
+import { getVideos } from "@/lib/veo";
 
 export default async function Home({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
@@ -18,7 +18,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
   const last = feed.lastMatch, next = feed.nextMatch;
   const lastRound = Math.max(0, ...feed.matches.filter(played).map((m) => m.round));
   const groupName = feed.group.name.replace(/^grup\s+/i, "");
-  const latestVideo = [...VIDEOS].sort((a, b) => b.date.localeCompare(a.date))[0];
+  const latestVideo = (await getVideos())[0];
   const heroPhoto = latestVideo?.thumb ?? CLUB.heroPhoto ?? leagueAsset(feed.team.photo);
   // standings excerpt: 8 rows around us
   const n = feed.standings.length;

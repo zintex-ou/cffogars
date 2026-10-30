@@ -1,12 +1,13 @@
 import { notFound } from "next/navigation";
 import { isLang, t as dict, fmtDate } from "@/lib/i18n";
-import { VIDEOS, seasonOf } from "@/content/videos";
+import { seasonOf } from "@/content/videos";
+import { getVideos } from "@/lib/veo";
 
 export default async function Videos({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   if (!isLang(lang)) notFound();
   const t = dict(lang);
-  const list = [...VIDEOS].sort((a, b) => b.date.localeCompare(a.date));
+  const list = await getVideos();
   const seasons = [...new Set(list.map((v) => v.season ?? seasonOf(v.date)))];
   return (
     <main>
