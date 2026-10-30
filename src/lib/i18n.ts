@@ -1,6 +1,6 @@
-export const LANGS = ["ca", "es", "en"] as const;
+export const LANGS = ["es", "ca", "en"] as const;
 export type Lang = (typeof LANGS)[number];
-export const DEFAULT_LANG: Lang = "ca";
+export const DEFAULT_LANG: Lang = "es";
 export const isLang = (x: string): x is Lang => (LANGS as readonly string[]).includes(x);
 
 type Tri = [string, string, string]; // es, ca, en
