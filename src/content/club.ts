@@ -73,8 +73,8 @@ export const SEASONS: { season: string; name: string; group: string; pos: number
 
 export type Sponsor = { name: string; url?: string; logo?: string /* /images/sponsors/x.png */ };
 export const SPONSORS_MAIN: Sponsor[] = [
-  { name: "Mesón El Cid", logo: "/images/sponsors/elcid.svg" },
-  { name: "Unspace", logo: "/images/sponsors/unspace.png", url: "https://unspace.app" },
-  { name: "Advision", logo: "/images/sponsors/advision.png" },
+  { name: "Mesón El Cid", logo: "/images/sponsors/elcid.svg", url: "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent("Mesón El Cid, Carrer de Narcís Macià i Domènech, Lloret de Mar") },
+  { name: "Unspace", logo: "/images/sponsors/unspace.png", url: "https://unspaceapp.com" },
+  { name: "Advision", logo: "/images/sponsors/advision.png", url: "https://ad.vision" },
 ];
 export const SPONSORS_PARTNERS: Sponsor[] = [];
