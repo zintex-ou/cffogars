@@ -22,7 +22,8 @@ export const CLUB = {
   social: { instagram: "", facebook: "", x: "", youtube: "" },
   /** /public/images/... */
   heroPhoto: "/images/hero.jpg" as string | null,
-  historyPhoto: null as string | null,
+  historyPhoto: "/images/palafolls-2023-24.jpg" as string | null,
+  historyPhotoCaption: "CD Palafolls Veterans · 2023-24",
   groundPhoto: "/images/ground.jpg" as string | null,
 };
 
@@ -54,6 +55,12 @@ export const STAFF: { name: string; role: string; photo?: string }[] = [
   { name: "Ievgen Zinchenko", role: "president" },
   { name: "Viktor Tiurin", role: "director" },
   { name: "Oleksandr Padaliuk", role: "entrenador" },
+];
+
+/** Past seasons (final standings). Current season is appended automatically from the league feed. */
+export const SEASONS: { season: string; name: string; group: string; pos: number; teams: number; pj: number; w: number; d: number; l: number; gf: number; gc: number; pts: number }[] = [
+  { season: "2023-24", name: "CD Palafolls Veterans", group: "B", pos: 9, teams: 14, pj: 26, w: 10, d: 5, l: 11, gf: 44, gc: 55, pts: 35 },
+  { season: "2024-25", name: "CF Fogars Veterans", group: "B", pos: 9, teams: 15, pj: 28, w: 8, d: 4, l: 16, gf: 37, gc: 51, pts: 28 },
 ];
 
 export type Sponsor = { name: string; url?: string; logo?: string /* /images/sponsors/x.png */ };

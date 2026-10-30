@@ -288,7 +288,7 @@ table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nu
 .record small { display: block; font-family: "Barlow Condensed"; font-weight: 700; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--green-light); margin-top: 4px; }
 
 /* history */
-.hphoto { position: relative; height: clamp(220px, 32vw, 420px); background: var(--green-dark); background-size: cover; background-position: center; }
+.hphoto { position: relative; height: clamp(220px, 34vw, 520px); max-width: 1280px; margin: 0 auto; background: var(--green-dark); background-size: cover; background-position: center; }
 .story { display: flex; flex-wrap: wrap; gap: clamp(32px, 6vw, 96px); }
 .story .yr { flex: 1 1 300px; }
 .story .yr > b { display: block; font-family: "Barlow Condensed"; font-weight: 800; font-size: clamp(72px, 8vw, 120px); line-height: .8; color: var(--green); }

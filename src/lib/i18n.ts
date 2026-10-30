@@ -95,6 +95,11 @@ const D = {
   contactThanks: ["¡Gracias! Hemos recibido tu mensaje.", "Gràcies! Hem rebut el teu missatge.", "Thanks! We've received your message."],
   sponsorCta: ["Patrocina al equipo", "Patrocina l'equip", "Sponsor the team"],
   staffRoles: ["", "", ""],
+  seasonsTitle: ["Temporadas", "Temporades", "Seasons"],
+  seasonCol: ["Temporada", "Temporada", "Season"],
+  posCol: ["Pos.", "Pos.", "Pos."],
+  total: ["Total", "Total", "Total"],
+  current: ["en curso", "en curs", "ongoing"],
   // guestbook
   gbTitle: ["Libro de visitas", "Llibre de visites", "Guestbook"],
   gbKicker: ["Deja tu mensaje", "Deixa el teu missatge", "Leave a message"],
