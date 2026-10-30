@@ -6,7 +6,7 @@ type VeoRec = { identifier: string; slug: string; title: string; start: string; 
 /** Public recordings of the club from app.veo.co (club privacy must be "public"). Cached 7 days (refreshed on deploy or weekly); falls back to the manual list. */
 export async function getVideos(): Promise<Video[]> {
   try {
-    const r = await fetch(`https://app.veo.co/api/app/clubs/${CLUB}/recordings/?filter=own&page_size=200`, { next: { revalidate: 7 * 24 * 3600 }, headers: { accept: "application/json" } });
+    const r = await fetch(`https://app.veo.co/api/app/clubs/${CLUB}/recordings/?filter=own&page_size=200`, { next: { revalidate: 7 * 24 * 3600, tags: ["veo"] }, headers: { accept: "application/json" } });
     if (!r.ok) throw new Error(String(r.status));
     const list = (await r.json()) as VeoRec[];
     const out = list.filter((v) => v.privacy === "public").map((v) => ({
