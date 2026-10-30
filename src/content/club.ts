@@ -22,8 +22,8 @@ export const CLUB = {
   social: { instagram: "", facebook: "", x: "", youtube: "" },
   /** /public/images/... */
   heroPhoto: "/images/hero.jpg" as string | null,
-  historyPhoto: "/images/palafolls-2023-24.jpg" as string | null,
-  historyPhotoCaption: "CD Palafolls Veterans · 2023-24",
+  historyPhoto: null as string | null,
+  historyPhotoCaption: "",
   groundPhoto: "/images/ground.jpg" as string | null,
 };
 
@@ -45,9 +45,9 @@ export const STORY: Tri[] = [
 export const TIMELINE: { y: string; title: Tri; text: Tri }[] = [];
 
 /** Honours: big number, label, detail. Empty → section hidden. */
-export const PALMARES: { n: string; label: Tri; sub: string }[] = [
-  { n: "2n", label: ["Torneo de Maçanet", "Torneig de Maçanet", "Maçanet Tournament"], sub: "2025" },
-  { n: "2n", label: ["Torneo de Castell d'Aro", "Torneig de Castell d'Aro", "Castell d'Aro Tournament"], sub: "2023" },
+export const PALMARES: { n: Tri; label: Tri; sub: string }[] = [
+  { n: ["2º", "2n", "2nd"], label: ["Torneo de Maçanet", "Torneig de Maçanet", "Maçanet Tournament"], sub: "2025" },
+  { n: ["2º", "2n", "2nd"], label: ["Torneo de Castell d'Aro", "Torneig de Castell d'Aro", "Castell d'Aro Tournament"], sub: "2023" },
 ];
 
 /** Club staff not in the league DB (role keys: entrenador, segon, president, fisio, delegat). Delegates come from the league automatically. */
@@ -57,10 +57,18 @@ export const STAFF: { name: string; role: string; photo?: string }[] = [
   { name: "Oleksandr Padaliuk", role: "entrenador" },
 ];
 
+/** Team photos by season (shown on the history page). */
+export const SEASON_PHOTOS: { season: string; src: string; caption: string }[] = [
+  { season: "2023-24", src: "/images/palafolls-2023-24.jpg", caption: "CD Palafolls Veterans" },
+  { season: "2024-25", src: "/images/fogars-2024-25.jpg", caption: "CF Fogars Veterans" },
+  { season: "2026-27", src: "/images/hero.jpg", caption: "CF Fogars Veterans" },
+];
+
 /** Past seasons (final standings). Current season is appended automatically from the league feed. */
 export const SEASONS: { season: string; name: string; group: string; pos: number; teams: number; pj: number; w: number; d: number; l: number; gf: number; gc: number; pts: number }[] = [
   { season: "2023-24", name: "CD Palafolls Veterans", group: "B", pos: 9, teams: 14, pj: 26, w: 10, d: 5, l: 11, gf: 44, gc: 55, pts: 35 },
   { season: "2024-25", name: "CF Fogars Veterans", group: "B", pos: 9, teams: 15, pj: 28, w: 8, d: 4, l: 16, gf: 37, gc: 51, pts: 28 },
+  { season: "2025-26", name: "CF Fogars Veterans", group: "B", pos: 6, teams: 17, pj: 34, w: 18, d: 6, l: 10, gf: 95, gc: 55, pts: 60 },
 ];
 
 export type Sponsor = { name: string; url?: string; logo?: string /* /images/sponsors/x.png */ };

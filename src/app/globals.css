@@ -360,3 +360,10 @@ table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nu
 .gbe .pl { font-size: 13px; color: var(--green); font-weight: 600; }
 .gbe .st, .gbacct .st { display: inline-block; margin-left: 6px; background: var(--green-dark); color: #fff; font-family: "Barlow Condensed"; font-weight: 700; font-size: 13px; letter-spacing: .06em; padding: 2px 8px; }
 .gbe.reg .who b { color: var(--green); }
+
+.sphotos { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: clamp(12px, 1.5vw, 20px); }
+.sphotos figure { margin: 0; background: #fff; border: 1px solid var(--line-2); }
+.sphotos img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+.sphotos figcaption { padding: 10px 14px; border-top: 4px solid var(--green); display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
+.sphotos figcaption b { font-family: "Barlow Condensed"; font-weight: 800; font-size: 20px; color: var(--green-dark); }
+.sphotos figcaption span { font-size: 13px; color: var(--muted); }
