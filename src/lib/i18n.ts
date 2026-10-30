@@ -15,6 +15,11 @@ const D = {
   league: ["Liga", "Lliga", "League"],
   guestbook: ["Libro de visitas", "Llibre de visites", "Guestbook"],
   guestbookNav: ["Visitas", "Visites", "Guestbook"],
+  videos: ["Vídeos", "Vídeos", "Videos"],
+  videosKicker: ["Partidos grabados", "Partits gravats", "Match recordings"],
+  watch: ["Ver el vídeo", "Veure el vídeo", "Watch video"],
+  noVideos: ["Todavía no hay vídeos.", "Encara no hi ha vídeos.", "No videos yet."],
+  latestVideo: ["Último vídeo", "Últim vídeo", "Latest video"],
   season: ["Temporada", "Temporada", "Season"],
   heroKicker: ["Liga Veteranos", "Lliga Veterans", "Veterans League"],
   group: ["Grupo", "Grup", "Group"],
@@ -31,6 +36,7 @@ const D = {
   P: ["PJ", "PJ", "P"], W: ["G", "G", "W"], Dr: ["E", "E", "D"], L: ["P", "P", "L"],
   GF: ["GF", "GF", "GF"], GA: ["GC", "GC", "GA"], GD: ["DG", "DG", "GD"], Pts: ["Pts", "Pts", "Pts"],
   form: ["Últimos 5", "Últims 5", "Last 5"],
+  fW: ["V", "V", "W"], fD: ["E", "E", "D"], fL: ["D", "D", "L"],
   topScorers: ["Goleadores", "Golejadors", "Top scorers"],
   goals: ["goles", "gols", "goals"],
   fullTable: ["Clasificación completa", "Classificació completa", "Full table"],
@@ -81,6 +87,14 @@ const D = {
   colors: ["Colores", "Colors", "Colours"],
   record: ["Balance", "Balanç", "Record"],
   points: ["puntos", "punts", "points"],
+  contactTitle: ["Contacto", "Contacte", "Contact"],
+  contactKicker: ["Patrocinio, colaboración, prensa", "Patrocini, col·laboració, premsa", "Sponsorship, partnership, press"],
+  contactIntro: ["¿Quieres patrocinar al equipo o colaborar con el club? Escríbenos y te respondemos.", "Vols patrocinar l'equip o col·laborar amb el club? Escriu-nos i et responem.", "Want to sponsor the team or work with the club? Write to us and we'll get back to you."],
+  contactEmail: ["Correo electrónico", "Correu electrònic", "Email"],
+  contactSend: ["Enviar", "Enviar", "Send"],
+  contactThanks: ["¡Gracias! Hemos recibido tu mensaje.", "Gràcies! Hem rebut el teu missatge.", "Thanks! We've received your message."],
+  sponsorCta: ["Patrocina al equipo", "Patrocina l'equip", "Sponsor the team"],
+  staffRoles: ["", "", ""],
   // guestbook
   gbTitle: ["Libro de visitas", "Llibre de visites", "Guestbook"],
   gbKicker: ["Deja tu mensaje", "Deixa el teu missatge", "Leave a message"],
@@ -115,6 +129,8 @@ const POS: Record<string, Tri> = {
   MIG: ["Centrocampista", "Migcampista", "Midfielder"],
   DAV: ["Delantero", "Davanter", "Forward"],
 };
+const ROLES: Record<string, Tri> = { delegat: ["Delegado", "Delegat", "Delegate"], entrenador: ["Entrenador", "Entrenador", "Head coach"], president: ["Presidente", "President", "President"], segon: ["Segundo entrenador", "Segon entrenador", "Assistant coach"], fisio: ["Fisioterapeuta", "Fisioterapeuta", "Physio"] };
+export const roleLabel = (lang: Lang, r: string) => ROLES[r.toLowerCase()]?.[IDX[lang]] ?? r;
 export const POS_ORDER = ["POR", "DEF", "MIG", "DAV"];
 export const posLabel = (lang: Lang, p: string) => POS[p]?.[IDX[lang]] ?? p;
 

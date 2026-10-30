@@ -21,11 +21,11 @@ export default async function Lliga({ params }: { params: Promise<{ lang: string
         <div style={{ display: "flex", flexWrap: "wrap", gap: "12px 28px", marginBottom: 20, fontSize: 15, fontWeight: 600 }}>
           <span style={{ display: "flex", alignItems: "center", gap: 8 }}><span style={{ width: 16, height: 16, background: "var(--green)" }} />{t.promo}</span>
           <span style={{ display: "flex", alignItems: "center", gap: 8 }}><span style={{ width: 16, height: 16, background: "var(--red)" }} />{t.releg}</span>
-          <a href={`${LEAGUE_URL}/lliga/${encodeURIComponent(feed.group.name)}`} target="_blank" rel="noopener" style={{ marginLeft: "auto", fontWeight: 700 }}>{t.officialFooter}: {LEAGUE_HOST} →</a>
+          <a href={`${LEAGUE_URL}/lliga/${encodeURIComponent(feed.group.name)}`} target="_blank" rel="noopener" style={{ marginLeft: "auto", fontWeight: 700 }}>{t.officialFooter} →</a>
         </div>
         <div style={{ borderTop: "4px solid var(--green)" }}><StandingsTable feed={feed} t={t} big /></div>
       </section>
-      <Sponsors t={t} />
+      <Sponsors t={t} lang={lang} />
     </main>
   );
 }

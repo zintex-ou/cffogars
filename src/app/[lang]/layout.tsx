@@ -13,12 +13,12 @@ export default async function LangLayout({ children, params }: { children: React
   if (!isLang(lang)) notFound();
   const t = dict(lang);
   const feed = await getFeed();
-  const logo = leagueAsset(feed?.team.logo ?? null);
+  const logo = "/logo.svg";
   return (
     <>
       <Header lang={lang} t={t} leagueUrl={LEAGUE_URL} leagueHost={LEAGUE_HOST} logo={logo} name={CLUB.name} initials={CLUB.initials} />
       {children}
-      <Footer t={t} leagueUrl={LEAGUE_URL} leagueHost={LEAGUE_HOST} logo={logo} />
+      <Footer t={t} lang={lang} leagueUrl={LEAGUE_URL} leagueHost={LEAGUE_HOST} logo={logo} />
     </>
   );
 }

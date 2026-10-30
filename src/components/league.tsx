@@ -36,7 +36,7 @@ export function StandingsTable({ feed, t, rows, big }: { feed: Feed; t: Dict; ro
                 <td>{r.pj}</td><td>{r.w}</td><td>{r.d}</td><td>{r.l}</td>
                 {big && <><td>{r.gf}</td><td>{r.gc}</td></>}
                 <td>{r.dg > 0 ? `+${r.dg}` : r.dg}</td>
-                {big && <td><span className="form">{r.form.slice(-5).map((f, i) => <span key={i} className={f}>{f === "W" ? t.W : f === "D" ? t.Dr : t.L}</span>)}</span></td>}
+                {big && <td><span className="form">{r.form.slice(-5).map((f, i) => <span key={i} className={f}>{f === "W" ? t.fW : f === "D" ? t.fD : t.fL}</span>)}</span></td>}
                 <td className="pts r">{r.pts}</td>
               </tr>
             );
@@ -52,13 +52,14 @@ export function FixtureRow({ feed, m, t, lang, next }: { feed: Feed; m: Match; t
   const d = fmtDate(lang, m.date);
   const pp = m.status === "postponed" || m.status === "cancelled";
   const mid = played(m) ? `${m.homeGoals} – ${m.awayGoals}` : pp ? t.postponed : m.time ?? "—";
+  const out = outcome(feed, m) ?? "";
   return (
     <div className={`fx${next ? " next" : ""}`}>
       <div className="md"><small>{t.md}</small><b>{m.round}</b></div>
       <div className="when"><b>{d.day}</b><span>{d.short}{m.time && !played(m) ? ` · ${m.time} h` : ""}</span></div>
       <div className="teams">
         <span className={`h${home ? " me" : ""}`}>{m.home.name}</span>
-        <span className={`mid${played(m) ? " played" : next ? " nx" : ""}${pp ? " pp" : ""}`}>{mid}</span>
+        <span className={`mid${played(m) ? ` played ${out}` : next ? " nx" : ""}${pp ? " pp" : ""}`}>{mid}</span>
         <span className={`a${home ? "" : " me"}`}>{m.away.name}</span>
       </div>
       <div className="where">

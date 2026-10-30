@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
-import { isLang, t as dict, posLabel, POS_ORDER } from "@/lib/i18n";
+import { isLang, t as dict, posLabel, roleLabel, POS_ORDER } from "@/lib/i18n";
+import { STAFF } from "@/content/club";
 import { getFeed, leagueAsset, displayName } from "@/lib/league";
 import { NoData } from "@/components/league";
 import SquadGrid from "./SquadGrid";
@@ -13,11 +14,20 @@ export default async function Equip({ params }: { params: Promise<{ lang: string
   const squad = [...feed.squad].sort((a, b) => POS_ORDER.indexOf(a.position) - POS_ORDER.indexOf(b.position) || (a.dorsal ?? 999) - (b.dorsal ?? 999) || a.surname.localeCompare(b.surname));
   const players = squad.map((p) => ({ ...p, photo: leagueAsset(p.photo), posLabel: posLabel(lang, p.position) }));
   const stats = [...squad].sort((a, b) => b.goals - a.goals || b.assists - a.assists || b.pj - a.pj);
+  const staff = [...STAFF.map((s) => ({ name: s.name, role: roleLabel(lang, s.role), photo: s.photo ?? null })), ...feed.staff.map((s) => ({ name: s.name, role: roleLabel(lang, s.role), photo: null }))];
   const chips = ["all", ...POS_ORDER].map((k) => ({ k, label: k === "all" ? t.all : posLabel(lang, k) }));
   return (
     <main>
       <SquadGrid t={t} season={feed.season} players={players} chips={chips} />
-      <section className="wrap" style={{ paddingBottom: "clamp(56px,7vw,104px)" }}>
+      {staff.length > 0 && (
+        <section style={{ background: "var(--green-light)" }}><div className="wrap" style={{ paddingTop: "clamp(32px,4vw,56px)", paddingBottom: "clamp(32px,4vw,56px)" }}>
+          <h2 className="h-sec" style={{ marginBottom: 24, color: "var(--green-dark)" }}>{t.staff}</h2>
+          <div className="staffgrid">
+            {staff.map((m, i) => <div key={i} className="scard">{m.photo && <div style={{ aspectRatio: "1/1", backgroundImage: `url(${m.photo})`, backgroundSize: "cover" }} />}<div className="info"><div className="role">{m.role}</div><div className="nm">{m.name}</div></div></div>)}
+          </div>
+        </div></section>
+      )}
+      <section className="wrap" style={{ paddingTop: "clamp(32px,4vw,56px)", paddingBottom: "clamp(56px,7vw,104px)" }}>
         <h2 className="h-sec rule">{t.stats}</h2>
         <div className="scroll">
           <table className="tbl" style={{ minWidth: 620 }}>
@@ -37,14 +47,6 @@ export default async function Equip({ params }: { params: Promise<{ lang: string
           </table>
         </div>
       </section>
-      {feed.staff.length > 0 && (
-        <section style={{ background: "var(--green-light)" }}><div className="wrap section">
-          <h2 className="h-sec" style={{ marginBottom: 32, color: "var(--green-dark)" }}>{t.staff}</h2>
-          <div className="staffgrid">
-            {feed.staff.map((m, i) => <div key={i} className="scard"><div className="info"><div className="role">{m.role}</div><div className="nm">{m.name}</div></div></div>)}
-          </div>
-        </div></section>
-      )}
     </main>
   );
 }

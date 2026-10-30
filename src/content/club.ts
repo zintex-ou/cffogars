@@ -45,6 +45,13 @@ export const TIMELINE: { y: string; title: Tri; text: Tri }[] = [];
 /** Honours: big number, label, detail. Empty → section hidden. */
 export const PALMARES: { n: string; label: Tri; sub: string }[] = [];
 
+/** Club staff not in the league DB (role keys: entrenador, segon, president, fisio, delegat). Delegates come from the league automatically. */
+export const STAFF: { name: string; role: string; photo?: string }[] = [];
+
 export type Sponsor = { name: string; url?: string; logo?: string /* /images/sponsors/x.png */ };
-export const SPONSORS_MAIN: Sponsor[] = [];
+export const SPONSORS_MAIN: Sponsor[] = [
+  { name: "Mesón El Cid", logo: "/images/sponsors/elcid.svg" },
+  { name: "Unspace", logo: "/images/sponsors/unspace.png", url: "https://unspace.app" },
+  { name: "Advision", logo: "/images/sponsors/advision.png" },
+];
 export const SPONSORS_PARTNERS: Sponsor[] = [];

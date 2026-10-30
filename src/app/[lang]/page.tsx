@@ -5,6 +5,7 @@ import { getFeed, LEAGUE_URL, LEAGUE_HOST, isMine, myScorers, mapUrl, matchUrl, 
 import { Badge, StandingsTable, NoData } from "@/components/league";
 import { Sponsors } from "@/components/Footer";
 import { CLUB } from "@/content/club";
+import { VIDEOS } from "@/content/videos";
 
 export default async function Home({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
@@ -17,7 +18,8 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
   const last = feed.lastMatch, next = feed.nextMatch;
   const lastRound = Math.max(0, ...feed.matches.filter(played).map((m) => m.round));
   const groupName = feed.group.name.replace(/^grup\s+/i, "");
-  const heroPhoto = CLUB.heroPhoto ?? leagueAsset(feed.team.photo);
+  const latestVideo = [...VIDEOS].sort((a, b) => b.date.localeCompare(a.date))[0];
+  const heroPhoto = latestVideo?.thumb ?? CLUB.heroPhoto ?? leagueAsset(feed.team.photo);
   // standings excerpt: 8 rows around us
   const n = feed.standings.length;
   let start = Math.max(0, (me?.pos ?? 1) - 4);
@@ -30,18 +32,21 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
   return (
     <main>
       <section className="hero">
-        {heroPhoto && <div className="photo" style={{ backgroundImage: `url(${heroPhoto})` }} />}
-        <div className="overlay" />
         <div className="wrap">
-          <div className="meta">
-            {me && <span className="pill">{ordinal(lang, me.pos)} · {me.pts} pts</span>}
-            <span>{t.heroKicker}</span>
-            <span>{t.season} {feed.season}</span>
+          <div className="visual" style={heroPhoto ? { backgroundImage: `url(${heroPhoto})` } : undefined}>
+            {latestVideo && <a className="play" href={latestVideo.url} target="_blank" rel="noopener"><span className="tri" />{t.latestVideo}: {latestVideo.title}</a>}
+            <div className="cap">
+              <div className="meta">
+                {me && <span className="pill">{ordinal(lang, me.pos)} · {me.pts} pts</span>}
+                <span>{t.heroKicker}</span>
+                <span>{t.season} {feed.season}</span>
+              </div>
+              <h1>
+                <span style={{ display: "block" }}>{CLUB.shortName}</span>
+                <span className="outline">{t.group} {groupName}</span>
+              </h1>
+            </div>
           </div>
-          <h1>
-            <span style={{ display: "block" }}>{CLUB.shortName}</span>
-            <span className="outline">{t.group} {groupName}</span>
-          </h1>
           <div className="cards">
             {last ? (
               <article className="card light">
@@ -139,7 +144,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
       <section style={{ background: "var(--green-dark)", color: "#fff" }}>
         <div className="wrap" style={{ paddingTop: "clamp(48px,6vw,88px)", paddingBottom: "clamp(48px,6vw,88px)", display: "flex", flexWrap: "wrap", alignItems: "flex-end", justifyContent: "space-between", gap: 32 }}>
           <div style={{ flex: "1 1 520px" }}>
-            <div className="kicker" style={{ fontSize: 16 }}>{LEAGUE_HOST}</div>
+            <div className="kicker" style={{ fontSize: 16 }}>{t.heroKicker}</div>
             <h2 className="h-big" style={{ marginTop: 10, fontSize: "clamp(44px,6vw,88px)" }}>{t.offTitle}</h2>
             <p style={{ margin: "18px 0 0", maxWidth: 560, fontSize: 18, color: "var(--green-light)" }}>{t.offText}</p>
           </div>
@@ -147,7 +152,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
         </div>
       </section>
 
-      <Sponsors t={t} />
+      <Sponsors t={t} lang={lang} />
     </main>
   );
 }

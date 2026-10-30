@@ -11,6 +11,7 @@ export const NAV: { key: keyof Dict; path: string }[] = [
   { key: "fixtures", path: "/calendari" },
   { key: "results", path: "/resultats" },
   { key: "league", path: "/lliga" },
+  { key: "videos", path: "/videos" },
   { key: "guestbookNav", path: "/llibre" },
 ];
 
@@ -24,7 +25,7 @@ export default function Header({ lang, t, leagueUrl, leagueHost, logo, name, ini
     <header>
       <div className="topbar">
         <div className="wrap">
-          <a href={leagueUrl} target="_blank" rel="noopener">{t.officialFooter}: {leagueHost}</a>
+          <a href={leagueUrl} target="_blank" rel="noopener">{t.officialFooter}</a>
           <div className="lang">
             {LANGS.map((l) => (
               <Link key={l} href={`/${l}${rest}`} className={l === lang ? "on" : ""} hrefLang={l}>{l.toUpperCase()}</Link>

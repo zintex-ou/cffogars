@@ -19,9 +19,9 @@ export default async function Historia({ params }: { params: Promise<{ lang: str
       {photo && <div className="hphoto" style={{ backgroundImage: `url(${photo})` }} />}
       <section className="wrap section story">
         <div className="yr">
-          <b>{founded ?? CLUB.initials}</b>
+          {founded && <b>{founded}</b>}
           <span>{CLUB.town} · Girona</span>
-          <div className="fitxa" style={{ marginTop: 28 }}>
+          <div className="fitxa" style={{ marginTop: founded ? 28 : 12 }}>
             {founded && <div><span>{t.founded}</span><b>{founded}</b></div>}
             <div><span>{t.ground}</span><b>{CLUB.ground}</b></div>
             <div><span>{t.colors}</span><b>{pick(lang, CLUB.colors)}</b></div>
