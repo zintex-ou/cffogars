@@ -3,6 +3,7 @@ import { isLang, t as dict } from "@/lib/i18n";
 import { getFeed, isMine } from "@/lib/league";
 import { FixtureRow, NoData } from "@/components/league";
 import Filter from "./Filter";
+import ScrollToNext from "./ScrollToNext";
 
 export default async function Calendari({ params, searchParams }: { params: Promise<{ lang: string }>; searchParams: Promise<{ f?: string }> }) {
   const { lang } = await params;
@@ -32,10 +33,11 @@ export default async function Calendari({ params, searchParams }: { params: Prom
         {rounds.map((r) => (
           <div key={r.title}>
             <h2 className="h-sec rule" style={{ fontSize: "clamp(32px,3.4vw,44px)", paddingBottom: 12 }}>{r.title}</h2>
-            <div>{r.items.map((m) => <FixtureRow key={m.id} feed={feed} m={m} t={t} lang={lang} next={m.id === nextId} />)}</div>
+            <div>{r.items.map((m) => <div key={m.id} id={m.id === nextId ? "next-match" : undefined}><FixtureRow feed={feed} m={m} t={t} lang={lang} next={m.id === nextId} /></div>)}</div>
           </div>
         ))}
       </section>
+      <ScrollToNext />
     </main>
   );
 }

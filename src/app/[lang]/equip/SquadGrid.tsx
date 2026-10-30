@@ -16,7 +16,7 @@ export default function SquadGrid({ t, season, players, chips }: { t: Dict; seas
           {chips.map((c) => <button key={c.k} className={`chip${f === c.k ? " on" : ""}`} onClick={() => setF(c.k)}>{c.label}</button>)}
         </div>
       </div></section>
-      <section className="wrap section" style={{ paddingBottom: "clamp(40px,5vw,72px)" }}>
+      <section className="wrap" style={{ paddingTop: 24, paddingBottom: "clamp(40px,5vw,72px)" }}>
         <div className="pgrid">
           {list.map((p) => (
             <article key={p.id} className="pcard">

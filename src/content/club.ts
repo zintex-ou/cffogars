@@ -13,7 +13,7 @@ export const CLUB = {
   shortName: "CF Fogars",
   initials: "CFV",
   town: "Fogars de la Selva",
-  founded: null as number | null, // e.g. 2011
+  founded: 2023 as number | null,
   ground: "Camp Municipal de Fogars de la Selva",
   address: ["Camp Municipal de Futbol", "Fogars de la Selva (Girona)"],
   colors: ["Blanco y verde", "Blanc i verd", "White and green"] as Tri,
@@ -23,19 +23,20 @@ export const CLUB = {
   /** /public/images/... */
   heroPhoto: "/images/hero.jpg" as string | null,
   historyPhoto: null as string | null,
+  groundPhoto: "/images/ground.jpg" as string | null,
 };
 
 /** History page paragraphs. First one is rendered large. */
 export const STORY: Tri[] = [
   [
-    "El CF Fogars Veterans es el equipo de veteranos de Fogars de la Selva. Competimos en la Liga de Veteranos de Girona y jugamos nuestros partidos en el Campo Municipal.",
-    "El CF Fogars Veterans és l'equip de veterans de Fogars de la Selva. Competim a la Lliga de Veterans de Girona i juguem els nostres partits al Camp Municipal.",
-    "CF Fogars Veterans is the veterans' team of Fogars de la Selva. We play in the Girona Veterans League and host our matches at the Municipal ground.",
+    "El CF Fogars Veterans se formó en 2023. Las primeras temporadas el equipo compitió con el nombre de Palafolls y en la temporada 2024-25 se trasladó a Fogars de la Selva, donde ha seguido creciendo.",
+    "El CF Fogars Veterans es va formar l'any 2023. Les primeres temporades l'equip va competir amb el nom de Palafolls i la temporada 2024-25 es va traslladar a Fogars de la Selva, on ha continuat creixent.",
+    "CF Fogars Veterans was formed in 2023. In its first seasons the team competed under the name Palafolls, and in 2024-25 it moved to Fogars de la Selva, where it has kept growing.",
   ],
   [
-    "El objetivo es el mismo cada temporada: competir cada sábado, respetar al rival y hacer piña en el tercer tiempo.",
-    "L'objectiu és el mateix cada temporada: competir cada dissabte, respectar el rival i fer pinya al tercer temps.",
-    "The goal is the same every season: compete every Saturday, respect the opponent and stick together at the third half.",
+    "Jugamos en la Liga de Veteranos de Girona y disputamos los partidos de casa en el Campo Municipal de Fogars.",
+    "Juguem a la Lliga de Veterans de Girona i disputem els partits de casa al Camp Municipal de Fogars.",
+    "We play in the Girona Veterans League and host our home matches at the Fogars Municipal ground.",
   ],
 ];
 
@@ -43,7 +44,10 @@ export const STORY: Tri[] = [
 export const TIMELINE: { y: string; title: Tri; text: Tri }[] = [];
 
 /** Honours: big number, label, detail. Empty → section hidden. */
-export const PALMARES: { n: string; label: Tri; sub: string }[] = [];
+export const PALMARES: { n: string; label: Tri; sub: string }[] = [
+  { n: "2n", label: ["Torneo de Maçanet", "Torneig de Maçanet", "Maçanet Tournament"], sub: "2025" },
+  { n: "2n", label: ["Torneo de Castell d'Aro", "Torneig de Castell d'Aro", "Castell d'Aro Tournament"], sub: "2023" },
+];
 
 /** Club staff not in the league DB (role keys: entrenador, segon, president, fisio, delegat). Delegates come from the league automatically. */
 export const STAFF: { name: string; role: string; photo?: string }[] = [
