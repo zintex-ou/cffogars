@@ -1,6 +1,6 @@
 # cffogars.com — runs next to the league stack; Caddy (from /opt/lliga) proxies to it over the shared network.
 services:
-  web:
+  site:
     build:
       context: ..
     restart: unless-stopped
