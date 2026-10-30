@@ -84,7 +84,7 @@ export function ResultCard({ feed, m, t, lang }: { feed: Feed; m: Match; t: Dict
       </div>
       <div className="body">
         <span className={`tm${home ? " me" : ""}`}>{m.home.name}</span>
-        <span className="sc">{m.homeGoals}<span className="dash">–</span>{m.awayGoals}</span>
+        <a className="sc" href={matchUrl(m)} target="_blank" rel="noopener" title={t.report}>{m.homeGoals}<span className="dash">–</span>{m.awayGoals}</a>
         <span className={`tm r${home ? "" : " me"}`}>{m.away.name}</span>
       </div>
       {sc.length > 0 && (
@@ -93,7 +93,6 @@ export function ResultCard({ feed, m, t, lang }: { feed: Feed; m: Match; t: Dict
           <div className="lst">{sc.map((s) => <span key={s.name}><b>{s.name}</b> <span>{s.mins}</span></span>)}</div>
         </div>
       )}
-      <a className="more" href={matchUrl(m)} target="_blank" rel="noopener">{t.report}<span>→</span></a>
     </article>
   );
 }

@@ -48,10 +48,13 @@ export function myScorers(m: Match) {
     if (e.team !== "mine" || !e.player) continue;
     let s = out.find((x) => x.name === e.player);
     if (!s) { s = { name: e.player, mins: [] }; out.push(s); }
-    s.mins.push(e.minute != null ? `${e.minute}'${e.type === "gol_pen" ? " (p)" : ""}` : e.type === "gol_pen" ? "(p)" : "");
+    const parts = [e.minute != null ? `${e.minute}'` : "", e.type === "gol_pen" ? "(p)" : "", e.assist ? `(${shortName(e.assist)})` : ""].filter(Boolean);
+    s.mins.push(parts.join(" "));
   }
-  return out.map((s) => ({ name: s.name, mins: s.mins.filter(Boolean).join(" ") || (s.mins.length > 1 ? `×${s.mins.length}` : "") }));
+  return out.map((s) => ({ name: s.name, mins: s.mins.filter(Boolean).join(", ") || (s.mins.length > 1 ? `×${s.mins.length}` : "") }));
 }
+/** "Miquel Ballesté Da Silva" → "M. Ballesté" */
+export const shortName = (full: string) => { const p = full.trim().split(/\s+/); return p.length > 1 ? `${p[0][0]}. ${p[1]}` : full; };
 export const initials = (t: TeamInfo) => t.short?.slice(0, 3).toUpperCase() ?? t.name.split(/\s+/).filter((w) => /^[A-ZÀ-Ü]/.test(w)).map((w) => w[0]).join("").slice(0, 3).toUpperCase();
 export const mapUrl = (field: string | null, town?: string | null) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent([field, town].filter(Boolean).join(", "))}`;
 export const leagueAsset = (p: string | null) => (p ? `${LEAGUE_URL}${p}` : null);

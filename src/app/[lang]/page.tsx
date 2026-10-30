@@ -52,22 +52,21 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
               <article className="card light">
                 <div className="head"><span className="title">{t.lastMatch}</span><span className="sub">J{last.round} · {fmtDate(lang, last.date).short}</span></div>
                 <div className="score-row">
-                  <div className={`team${isMine(feed, last) ? "" : " other"}`}><Badge team={last.home} size={64} dark={isMine(feed, last)} />{last.home.name}</div>
+                  <div className={`team${isMine(feed, last) ? "" : " other"}`}><Badge team={last.home} size={52} dark={isMine(feed, last)} />{last.home.name}</div>
                   <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                    <span className="score">{last.homeGoals}<span className="dash">–</span>{last.awayGoals}</span>
+                    <a className="score" href={matchUrl(last)} target="_blank" rel="noopener" title={t.report}>{last.homeGoals}<span className="dash">–</span>{last.awayGoals}</a>
                     <span className="tag" style={{ marginTop: 6, background: "var(--green-light)", color: "var(--green-dark)", fontSize: 14, letterSpacing: ".14em" }}>{t.final}</span>
                   </div>
-                  <div className={`team${isMine(feed, last) ? " other" : ""}`}><Badge team={last.away} size={64} dark={!isMine(feed, last)} />{last.away.name}</div>
+                  <div className={`team${isMine(feed, last) ? " other" : ""}`}><Badge team={last.away} size={52} dark={!isMine(feed, last)} />{last.away.name}</div>
                 </div>
                 {myScorers(last).length > 0 && (
-                  <div style={{ borderTop: "1px solid var(--line-2)", paddingTop: 18 }}>
+                  <div style={{ borderTop: "1px solid var(--line-2)", paddingTop: 10 }}>
                     <div className="scorers-h">{t.scorers} · {CLUB.shortName}</div>
-                    <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                    <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
                       {myScorers(last).map((s) => <div key={s.name} className="scorer"><b>{s.name}</b><span>{s.mins}</span></div>)}
                     </div>
                   </div>
                 )}
-                <a className="link-cta" href={matchUrl(last)} target="_blank" rel="noopener">{t.report} →</a>
               </article>
             ) : null}
             <article className="card green">
@@ -77,14 +76,14 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
                   <div className="next-date">
                     <span className="dm">{nd.dayMonth}</span>
                     <span className="side">
-                      <span className="d">{nd.day}</span><span className="dt">{nd.short}</span>
+                      <span className="d">{nd.day}</span>
                       <span className="tm">{next.time ? `${next.time} h` : t.tbd}</span>
                     </span>
                   </div>
                   <div className="vs-row">
-                    <div className="side"><Badge team={next.home} size={48} dark />{next.home.name}</div>
+                    <div className="side"><Badge team={next.home} size={40} dark />{next.home.name}</div>
                     <span className="vs">VS</span>
-                    <div className="side r">{next.away.name}<Badge team={next.away} size={48} /></div>
+                    <div className="side r">{next.away.name}<Badge team={next.away} size={40} /></div>
                   </div>
                   {next.field && (
                     <a className="venue" href={mapUrl(next.field, next.home.town)} target="_blank" rel="noopener">
