@@ -1,6 +1,7 @@
 /** Read-only feed from the league site (lliga). Revalidated every 5 minutes. */
 
-export const LEAGUE_URL = (process.env.LEAGUE_URL ?? "https://lliga.zintex.dev").replace(/\/$/, "");
+export const LEAGUE_URL = (process.env.LEAGUE_URL ?? "https://lliga.cffogars.com").replace(/\/$/, "");
+export const LEAGUE_API_URL = (process.env.LEAGUE_API_URL ?? LEAGUE_URL).replace(/\/$/, "");
 export const LEAGUE_HOST = LEAGUE_URL.replace(/^https?:\/\//, "");
 export const TEAM_SLUG = process.env.TEAM_SLUG ?? "cf-fogars-veterans";
 
@@ -25,7 +26,7 @@ export type Feed = {
 
 export async function getFeed(): Promise<Feed | null> {
   try {
-    const res = await fetch(`${LEAGUE_URL}/api/public/team/${TEAM_SLUG}`, { next: { revalidate: 300 } });
+    const res = await fetch(`${LEAGUE_API_URL}/api/public/team/${TEAM_SLUG}`, { next: { revalidate: 300 } });
     if (!res.ok) return null;
     return (await res.json()) as Feed;
   } catch {

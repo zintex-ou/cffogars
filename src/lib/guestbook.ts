@@ -111,6 +111,10 @@ export function userFromCookie(v: string | undefined): User | null {
 export const adminCookieValue = () => sign("admin:" + (process.env.ADMIN_TOKEN ?? ""));
 export const isAdminCookie = (v: string | undefined) => !!process.env.ADMIN_TOKEN && !!v && v === adminCookieValue();
 
+export function listMessages(limit = 100) {
+  db().exec(`CREATE TABLE IF NOT EXISTS messages (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, email TEXT NOT NULL, message TEXT NOT NULL, lang TEXT, created_at TEXT NOT NULL DEFAULT (datetime('now')))`);
+  return db().prepare("SELECT id, name, email, message, created_at FROM messages ORDER BY id DESC LIMIT ?").all(limit) as { id: number; name: string; email: string; message: string; created_at: string }[];
+}
 export type EntryFull = Entry & { user_id: number | null; nick: string | null; player_id: number | null; status: string | null };
 export function listEntriesFull(limit = 200): EntryFull[] {
   usersTable();

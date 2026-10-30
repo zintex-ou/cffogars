@@ -25,7 +25,7 @@ export default function Header({ lang, t, leagueUrl, leagueHost, logo, name, ini
     <header>
       <div className="topbar">
         <div className="wrap">
-          <a href={leagueUrl} target="_blank" rel="noopener">{t.officialFooter}</a>
+          <span>{t.heroKicker} · {t.season} 2026-27</span>
           <div className="lang">
             {LANGS.map((l) => (
               <Link key={l} href={`/${l}${rest}`} className={l === lang ? "on" : ""} hrefLang={l}>{l.toUpperCase()}</Link>

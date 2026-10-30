@@ -4,8 +4,9 @@ import { useRouter } from "next/navigation";
 
 type U = { id: number; nick: string; player_id: number | null; status: string | null; created_at: string };
 type E = { id: number; name: string; message: string; created_at: string; nick: string | null };
+type M = { id: number; name: string; email: string; message: string; created_at: string };
 
-export default function Admin({ authed, users, entries, players }: { authed: boolean; users: U[]; entries: E[]; players: { id: number; label: string }[] }) {
+export default function Admin({ authed, users, entries, messages, players }: { authed: boolean; users: U[]; entries: E[]; messages: M[]; players: { id: number; label: string }[] }) {
   const router = useRouter();
   const [msg, setMsg] = useState("");
   const call = async (body: Record<string, unknown>) => {
@@ -42,7 +43,16 @@ export default function Admin({ authed, users, entries, players }: { authed: boo
         </table></div>
       </div>
       <div>
-        <h2 className="h-sec rule">Missatges</h2>
+        <h2 className="h-sec rule">Formulari de contacte</h2>
+        <div className="gbl">
+          {messages.length === 0 && <p style={{ color: "var(--muted)" }}>Cap missatge.</p>}
+          {messages.map((m) => (
+            <div key={m.id} className="gbe"><div className="who"><span className="nm"><b>{m.name}</b><a href={`mailto:${m.email}`} className="pl">{m.email}</a></span><span>{m.created_at.slice(0, 16)}</span></div><p>{m.message}</p></div>
+          ))}
+        </div>
+      </div>
+      <div>
+        <h2 className="h-sec rule">Llibre de visites</h2>
         <div className="gbl">
           {entries.map((e) => (
             <div key={e.id} className="gbe"><div className="who"><span className="nm"><b>{e.nick ?? e.name}</b></span><span>{e.created_at.slice(0, 16)} · <button style={{ border: 0, background: "none", color: "var(--red)", fontWeight: 700 }} onClick={() => { if (confirm("Amagar?")) call({ action: "hide", id: e.id }); }}>Amaga</button></span></div><p>{e.message}</p></div>
