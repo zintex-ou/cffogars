@@ -1,0 +1,24 @@
+# cffogars.com — runs next to the league stack; Caddy (from /opt/lliga) proxies to it over the shared network.
+services:
+  web:
+    build:
+      context: ..
+    restart: unless-stopped
+    env_file: /srv/cffogars.env
+    volumes:
+      - cffogars_data:/data
+    networks:
+      - lliga_net
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:3000/ca"]
+      interval: 60s
+      timeout: 5s
+      retries: 3
+
+volumes:
+  cffogars_data:
+
+networks:
+  lliga_net:
+    external: true
+    name: deploy_default

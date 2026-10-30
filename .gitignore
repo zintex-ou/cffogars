@@ -1,0 +1,8 @@
+node_modules
+.next
+data
+*.db
+.env*
+
+*.tsbuildinfo
+_to_delete*

@@ -1,0 +1,7 @@
+# Add to /opt/lliga/deploy/Caddyfile
+cffogars.com, www.cffogars.com {
+	@www host www.cffogars.com
+	redir @www https://cffogars.com{uri} permanent
+	encode zstd gzip
+	reverse_proxy cffogars-web-1:3000
+}
