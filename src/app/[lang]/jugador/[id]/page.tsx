@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { isLang, t as dict, posLabel, fmtDate } from "@/lib/i18n";
 import { getPlayer, leagueAsset, LEAGUE_URL } from "@/lib/league";
 import { Badge } from "@/components/league";
+import { localPhoto } from "@/content/portraits";
 
 export const revalidate = 300;
 
@@ -22,7 +23,7 @@ export default async function Jugador({ params }: { params: Promise<{ lang: stri
   if (!c) notFound();
   const { player: p, team, stats: st, history } = c;
   const gk = p.position === "POR";
-  const photo = leagueAsset(p.photo);
+  const photo = localPhoto(p) ?? leagueAsset(p.photo);
   const label = (r: string) => (t as Record<string, string>)[r] ?? r;
   const hist = [...history].reverse();
   return (

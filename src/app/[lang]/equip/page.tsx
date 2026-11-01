@@ -4,6 +4,7 @@ import { isLang, t as dict, posLabel, roleLabel, POS_ORDER } from "@/lib/i18n";
 import { STAFF } from "@/content/club";
 import { getFeed, leagueAsset, displayName } from "@/lib/league";
 import { NoData } from "@/components/league";
+import { localPhoto } from "@/content/portraits";
 import SquadGrid from "./SquadGrid";
 
 export default async function Equip({ params }: { params: Promise<{ lang: string }> }) {
@@ -13,7 +14,7 @@ export default async function Equip({ params }: { params: Promise<{ lang: string
   const feed = await getFeed();
   if (!feed) return <NoData t={t} />;
   const squad = [...feed.squad].sort((a, b) => (a.dorsal ?? 999) - (b.dorsal ?? 999) || POS_ORDER.indexOf(a.position) - POS_ORDER.indexOf(b.position) || a.surname.localeCompare(b.surname));
-  const players = squad.map((p) => ({ ...p, photo: leagueAsset(p.photo), posLabel: posLabel(lang, p.position) }));
+  const players = squad.map((p) => ({ ...p, photo: localPhoto(p) ?? leagueAsset(p.photo), posLabel: posLabel(lang, p.position) }));
   const stats = [...squad].sort((a, b) => b.goals - a.goals || b.assists - a.assists || b.pj - a.pj);
   const staff: { name: string; role: string; photo: string | null }[] = [];
   for (const s of [...STAFF.map((s) => ({ name: s.name, role: s.role, photo: s.photo ?? null })), ...feed.staff.map((s) => ({ name: s.name, role: s.role, photo: null }))]) {

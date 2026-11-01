@@ -6,6 +6,7 @@ import { Badge, StandingsTable, NoData, ScorerLine } from "@/components/league";
 import { Sponsors } from "@/components/Footer";
 import { CLUB } from "@/content/club";
 import { getVideos } from "@/lib/veo";
+import { localPhoto } from "@/content/portraits";
 
 export default async function Home({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
@@ -124,7 +125,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
                     <div className="meta">{feed.team.name}{top.dorsal != null ? ` · #${top.dorsal}` : ""} · {t.goals}</div>
                   </div>
                 </div>
-                <div className="ph" style={top.photo ? { backgroundImage: `url(${leagueAsset(top.photo)})` } : undefined} />
+                <div className="ph" style={(localPhoto(top) ?? leagueAsset(top.photo)) ? { backgroundImage: `url(${localPhoto(top) ?? leagueAsset(top.photo)})` } : undefined} />
               </div>
               <div>
                 {rest.map((p, i) => (
