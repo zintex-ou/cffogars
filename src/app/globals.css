@@ -125,7 +125,7 @@ a.score:hover { color: var(--green); }
 a.rcard-sc, .rcard a.sc { text-decoration: none; }
 .rcard a.sc:hover { color: var(--green); }
 .scorers-h { font-family: "Barlow Condensed"; font-weight: 700; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
-.scorer { display: flex; align-items: baseline; gap: 8px; font-size: 14px; line-height: 1.35; }
+.scorer { display: flex; align-items: baseline; gap: 8px; font-size: 14px; line-height: 1.35; min-width: 0; }
 .scorer::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--green); flex: none; transform: translateY(-2px); }
 .scorer b { font-weight: 700; }
 .scorer span { color: var(--muted); font-variant-numeric: tabular-nums; }
@@ -372,7 +372,9 @@ a.rcard-sc, .rcard a.sc { text-decoration: none; }
 .sphotos figcaption { padding: 10px 14px; border-top: 4px solid var(--green); display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
 .sphotos figcaption b { font-family: "Barlow Condensed"; font-weight: 800; font-size: 20px; color: var(--green-dark); }
 .sphotos figcaption span { font-size: 13px; color: var(--muted); }
-.pl { color: inherit; text-decoration: none; border-bottom: 1px dotted currentColor; }
+.pl { color: inherit; text-decoration: underline dotted; text-decoration-color: rgba(14,26,19,.3); text-underline-offset: 3px; }
 .pl:hover { color: var(--green); text-decoration: none; }
-.rcard .scr .lst b, .scorer b { color: var(--ink); }
+.rcard .scr .lst b, .scorer b { color: var(--ink); white-space: nowrap; flex: none; }
+.scorer > span, .rcard .scr .lst > span > span { display: inline; }
+.scorer > span > span > span, .rcard .scr .lst > span > span > span > span { white-space: nowrap; }
 .rcard .scr .lst > span { display: inline-flex; gap: 6px; align-items: baseline; }

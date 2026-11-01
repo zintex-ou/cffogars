@@ -7,7 +7,7 @@ export function ScorerLine({ s, className }: { s: Scorer; className?: string }) 
   const PL = ({ id, name }: { id: number | null; name: string }) => { const u = playerUrl(id); return u ? <a className="pl" href={u} target="_blank" rel="noopener">{name}</a> : <>{name}</>; };
   const shown = s.goals.filter((g) => g.minute != null || g.pen || g.assist);
   const parts = shown.map((g, i) => (
-    <span key={i}>{i > 0 ? ", " : ""}{g.minute != null ? `${g.minute}'` : ""}{g.pen ? (g.minute != null ? " (p)" : "(p)") : ""}{g.assist ? <>{g.minute != null || g.pen ? " " : ""}(<PL id={g.assist.id} name={g.assist.name} />)</> : null}</span>
+    <span key={i}>{i > 0 ? ", " : ""}<span>{g.minute != null ? `${g.minute}'` : ""}{g.pen ? (g.minute != null ? " (p)" : "(p)") : ""}{g.assist ? <>{g.minute != null || g.pen ? " " : ""}(<PL id={g.assist.id} name={g.assist.name} />)</> : null}</span></span>
   ));
   const empty = shown.length === 0;
   return <span className={className}><b><PL id={s.id} name={s.name} /></b><span>{empty ? (s.goals.length > 1 ? `×${s.goals.length}` : "") : parts}</span></span>;
