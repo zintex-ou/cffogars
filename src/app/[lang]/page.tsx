@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { isLang, t as dict, fmtDate, ordinal } from "@/lib/i18n";
 import { getFeed, LEAGUE_URL, LEAGUE_HOST, isMine, myScorers, mapUrl, matchUrl, leagueAsset, displayName, played } from "@/lib/league";
-import { Badge, StandingsTable, NoData } from "@/components/league";
+import { Badge, StandingsTable, NoData, ScorerLine } from "@/components/league";
 import { Sponsors } from "@/components/Footer";
 import { CLUB } from "@/content/club";
 import { getVideos } from "@/lib/veo";
@@ -63,7 +63,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
                   <div style={{ borderTop: "1px solid var(--line-2)", paddingTop: 10 }}>
                     <div className="scorers-h">{t.scorers} · {CLUB.shortName}</div>
                     <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
-                      {myScorers(last).map((s) => <div key={s.name} className="scorer"><b>{s.name}</b><span>{s.mins}</span></div>)}
+                      {myScorers(last).map((s) => <ScorerLine key={s.name} s={s} className="scorer" />)}
                     </div>
                   </div>
                 )}

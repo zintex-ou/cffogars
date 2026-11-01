@@ -6,7 +6,7 @@ export const LEAGUE_HOST = LEAGUE_URL.replace(/^https?:\/\//, "");
 export const TEAM_SLUG = process.env.TEAM_SLUG ?? "cf-fogars-veterans";
 
 export type TeamInfo = { id: number; name: string; slug: string; short: string | null; logo: string | null; town: string | null; field: string | null };
-export type GoalEvent = { type: "gol" | "gol_pen"; minute: number | null; player: string | null; playerId: number | null; assist: string | null; team: "mine" | "other" };
+export type GoalEvent = { type: "gol" | "gol_pen"; minute: number | null; player: string | null; playerShort?: string | null; playerId: number | null; assist: string | null; assistShort?: string | null; assistId?: number | null; team: "mine" | "other" };
 export type Match = {
   id: number; round: number; date: string; time: string | null; field: string | null;
   status: "scheduled" | "played" | "walkover" | "postponed" | "cancelled" | string; notes: string | null;
@@ -41,18 +41,21 @@ export function outcome(f: Feed, m: Match): "W" | "D" | "L" | null {
   const mine = isMine(f, m) ? m.homeGoals : m.awayGoals, other = isMine(f, m) ? m.awayGoals : m.homeGoals;
   return mine > other ? "W" : mine === other ? "D" : "L";
 }
-/** Goals scored by our players in a match, grouped by scorer: [{ name, mins: "24' 45'" }] */
-export function myScorers(m: Match) {
-  const out: { name: string; mins: string[] }[] = [];
+/** Goals scored by our players, grouped by scorer, with per-goal details for rendering links. */
+export type ScorerGoal = { minute: number | null; pen: boolean; assist: { id: number | null; name: string } | null };
+export type Scorer = { id: number | null; name: string; goals: ScorerGoal[] };
+export function myScorers(m: Match): Scorer[] {
+  const out: Scorer[] = [];
   for (const e of m.events) {
     if (e.team !== "mine" || !e.player) continue;
-    let s = out.find((x) => x.name === e.player);
-    if (!s) { s = { name: e.player, mins: [] }; out.push(s); }
-    const parts = [e.minute != null ? `${e.minute}'` : "", e.type === "gol_pen" ? "(p)" : "", e.assist ? `(${shortName(e.assist)})` : ""].filter(Boolean);
-    s.mins.push(parts.join(" "));
+    const nm = e.playerShort ?? shortName(e.player);
+    let s = out.find((x) => x.name === nm);
+    if (!s) { s = { id: e.playerId, name: nm, goals: [] }; out.push(s); }
+    s.goals.push({ minute: e.minute, pen: e.type === "gol_pen", assist: e.assist ? { id: e.assistId ?? null, name: e.assistShort ?? shortName(e.assist) } : null });
   }
-  return out.map((s) => ({ name: s.name, mins: s.mins.filter(Boolean).join(", ") || (s.mins.length > 1 ? `×${s.mins.length}` : "") }));
+  return out;
 }
+export const playerUrl = (id: number | null) => (id ? `${LEAGUE_URL}/jugador/${id}` : null);
 /** "Miquel Ballesté Da Silva" → "M. Ballesté" */
 export const shortName = (full: string) => { const p = full.trim().split(/\s+/); return p.length > 1 ? `${p[0][0]}. ${p[1]}` : full; };
 export const initials = (t: TeamInfo) => t.short?.slice(0, 3).toUpperCase() ?? t.name.split(/\s+/).filter((w) => /^[A-ZÀ-Ü]/.test(w)).map((w) => w[0]).join("").slice(0, 3).toUpperCase();

@@ -1,8 +1,20 @@
-import { type Feed, type Match, type Row, type TeamInfo, initials, isMine, played, outcome, myScorers, mapUrl, matchUrl, leagueAsset } from "@/lib/league";
+import { type Feed, type Match, type Row, type TeamInfo, type Scorer, initials, isMine, played, outcome, myScorers, mapUrl, matchUrl, leagueAsset, playerUrl } from "@/lib/league";
 import { type Lang, type Dict, fmtDate } from "@/lib/i18n";
+import { localCrest } from "@/content/crests";
+
+/** "A. Andreev  43' (J. L. Coloma), 65' (p)" with names linking to the league player card. */
+export function ScorerLine({ s, className }: { s: Scorer; className?: string }) {
+  const PL = ({ id, name }: { id: number | null; name: string }) => { const u = playerUrl(id); return u ? <a className="pl" href={u} target="_blank" rel="noopener">{name}</a> : <>{name}</>; };
+  const shown = s.goals.filter((g) => g.minute != null || g.pen || g.assist);
+  const parts = shown.map((g, i) => (
+    <span key={i}>{i > 0 ? ", " : ""}{g.minute != null ? `${g.minute}'` : ""}{g.pen ? (g.minute != null ? " (p)" : "(p)") : ""}{g.assist ? <>{g.minute != null || g.pen ? " " : ""}(<PL id={g.assist.id} name={g.assist.name} />)</> : null}</span>
+  ));
+  const empty = shown.length === 0;
+  return <span className={className}><b><PL id={s.id} name={s.name} /></b><span>{empty ? (s.goals.length > 1 ? `×${s.goals.length}` : "") : parts}</span></span>;
+}
 
 export function Badge({ team, size = 30, dark }: { team: TeamInfo; size?: number; dark?: boolean }) {
-  const logo = leagueAsset(team.logo);
+  const logo = leagueAsset(team.logo) ?? localCrest(team);
   return (
     <span className="badge" style={{ width: size, height: size, fontSize: Math.round(size * 0.38), background: dark ? "var(--green)" : "var(--paper-2)", color: dark ? "#fff" : "var(--muted)" }}>
       {logo ? <img src={logo} alt="" loading="lazy" /> : initials(team)}
@@ -90,7 +102,7 @@ export function ResultCard({ feed, m, t, lang }: { feed: Feed; m: Match; t: Dict
       {sc.length > 0 && (
         <div className="scr">
           <div className="scorers-h">{t.scorers} · {feed.team.short ?? feed.team.name}</div>
-          <div className="lst">{sc.map((s) => <span key={s.name}><b>{s.name}</b> <span>{s.mins}</span></span>)}</div>
+          <div className="lst">{sc.map((s) => <ScorerLine key={s.name} s={s} />)}</div>
         </div>
       )}
     </article>
