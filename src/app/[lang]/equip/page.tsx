@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { isLang, t as dict, posLabel, roleLabel, POS_ORDER } from "@/lib/i18n";
 import { STAFF } from "@/content/club";
@@ -11,7 +12,7 @@ export default async function Equip({ params }: { params: Promise<{ lang: string
   const t = dict(lang);
   const feed = await getFeed();
   if (!feed) return <NoData t={t} />;
-  const squad = [...feed.squad].sort((a, b) => POS_ORDER.indexOf(a.position) - POS_ORDER.indexOf(b.position) || (a.dorsal ?? 999) - (b.dorsal ?? 999) || a.surname.localeCompare(b.surname));
+  const squad = [...feed.squad].sort((a, b) => (a.dorsal ?? 999) - (b.dorsal ?? 999) || POS_ORDER.indexOf(a.position) - POS_ORDER.indexOf(b.position) || a.surname.localeCompare(b.surname));
   const players = squad.map((p) => ({ ...p, photo: leagueAsset(p.photo), posLabel: posLabel(lang, p.position) }));
   const stats = [...squad].sort((a, b) => b.goals - a.goals || b.assists - a.assists || b.pj - a.pj);
   const staff: { name: string; role: string; photo: string | null }[] = [];
@@ -22,7 +23,7 @@ export default async function Equip({ params }: { params: Promise<{ lang: string
   const chips = ["all", ...POS_ORDER].map((k) => ({ k, label: k === "all" ? t.all : posLabel(lang, k) }));
   return (
     <main>
-      <SquadGrid t={t} season={feed.season} players={players} chips={chips} />
+      <SquadGrid t={t} season={feed.season} players={players} chips={chips} lang={lang} />
       {staff.length > 0 && (
         <section style={{ background: "var(--green-light)" }}><div className="wrap" style={{ paddingTop: "clamp(32px,4vw,56px)", paddingBottom: "clamp(32px,4vw,56px)" }}>
           <h2 className="h-sec" style={{ marginBottom: 24, color: "var(--green-dark)" }}>{t.staff}</h2>
@@ -40,7 +41,7 @@ export default async function Equip({ params }: { params: Promise<{ lang: string
               {stats.map((p) => (
                 <tr key={p.id}>
                   <td className="l" style={{ fontFamily: "Barlow Condensed", fontWeight: 800, fontSize: 20, color: "var(--green)" }}>{p.dorsal ?? ""}</td>
-                  <td className="l" style={{ fontWeight: 600 }}>{displayName(p)}{p.suspended > 0 && <span className="tag" style={{ marginLeft: 8, background: "var(--card-red)", color: "#fff", fontSize: 11 }}>{t.suspended}</span>}</td>
+                  <td className="l" style={{ fontWeight: 600 }}><Link className="pl" href={`/${lang}/jugador/${p.id}`}>{displayName(p)}</Link>{p.suspended > 0 && <span className="tag" style={{ marginLeft: 8, background: "var(--card-red)", color: "#fff", fontSize: 11 }}>{t.suspended}</span>}</td>
                   <td className="l" style={{ color: "var(--muted)" }}>{posLabel(lang, p.position)}</td>
                   <td>{p.pj}</td>
                   <td style={{ fontFamily: "Barlow Condensed", fontWeight: 800, fontSize: 20, color: "var(--green-dark)" }}>{p.goals}</td>

@@ -1,10 +1,11 @@
 import { type Feed, type Match, type Row, type TeamInfo, type Scorer, initials, isMine, played, outcome, myScorers, mapUrl, matchUrl, leagueAsset, playerUrl } from "@/lib/league";
+import Link from "next/link";
 import { type Lang, type Dict, fmtDate } from "@/lib/i18n";
 import { localCrest } from "@/content/crests";
 
 /** "A. Andreev  43' (J. L. Coloma), 65' (p)" with names linking to the league player card. */
-export function ScorerLine({ s, className }: { s: Scorer; className?: string }) {
-  const PL = ({ id, name }: { id: number | null; name: string }) => { const u = playerUrl(id); return u ? <a className="pl" href={u} target="_blank" rel="noopener">{name}</a> : <>{name}</>; };
+export function ScorerLine({ s, className, lang }: { s: Scorer; className?: string; lang: Lang }) {
+  const PL = ({ id, name }: { id: number | null; name: string }) => { const u = playerUrl(id, lang); return u ? <Link className="pl" href={u}>{name}</Link> : <>{name}</>; };
   const shown = s.goals.filter((g) => g.minute != null || g.pen || g.assist);
   const parts = shown.map((g, i) => (
     <span key={i}>{i > 0 ? ", " : ""}<span>{g.minute != null ? `${g.minute}'` : ""}{g.pen ? (g.minute != null ? " (p)" : "(p)") : ""}{g.assist ? <>{g.minute != null || g.pen ? " " : ""}(<PL id={g.assist.id} name={g.assist.name} />)</> : null}</span></span>
@@ -102,7 +103,7 @@ export function ResultCard({ feed, m, t, lang }: { feed: Feed; m: Match; t: Dict
       {sc.length > 0 && (
         <div className="scr">
           <div className="scorers-h">{t.scorers} · {feed.team.short ?? feed.team.name}</div>
-          <div className="lst">{sc.map((s) => <ScorerLine key={s.name} s={s} />)}</div>
+          <div className="lst">{sc.map((s) => <ScorerLine key={s.name} s={s} lang={lang} />)}</div>
         </div>
       )}
     </article>

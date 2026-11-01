@@ -68,7 +68,7 @@ export const SEASON_PHOTOS: { season: string; src: string; caption: string }[] =
 export const SEASONS: { season: string; name: string; group: string; pos: number; teams: number; pj: number; w: number; d: number; l: number; gf: number; gc: number; pts: number }[] = [
   { season: "2023-24", name: "CD Palafolls Veterans", group: "B", pos: 9, teams: 14, pj: 26, w: 10, d: 5, l: 11, gf: 44, gc: 55, pts: 35 },
   { season: "2024-25", name: "CF Fogars Veterans", group: "B", pos: 9, teams: 15, pj: 28, w: 8, d: 4, l: 16, gf: 37, gc: 51, pts: 28 },
-  { season: "2025-26", name: "CF Fogars Veterans", group: "B", pos: 6, teams: 17, pj: 34, w: 18, d: 6, l: 10, gf: 95, gc: 55, pts: 60 },
+  { season: "2025-26", name: "CF Fogars Veterans", group: "B", pos: 6, teams: 18, pj: 34, w: 18, d: 6, l: 10, gf: 95, gc: 55, pts: 60 },
 ];
 
 export type Sponsor = { name: string; url?: string; logo?: string /* /images/sponsors/x.png */ };

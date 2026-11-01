@@ -34,6 +34,28 @@ export async function getFeed(): Promise<Feed | null> {
   }
 }
 
+export type PlayerHistory = {
+  id: number; round: number; date: string; home: TeamInfo; away: TeamInfo; homeGoals: number | null; awayGoals: number | null; status: string;
+  goals: number; pen: number; missedPen: number; assists: number; yellows: number; reds: number; sub: boolean; conceded: number | null;
+};
+export type PlayerCard = {
+  player: { id: number; name: string; surname: string; position: string; dorsal: number | null; photo: string | null; age: number | null; active: boolean };
+  team: TeamInfo;
+  stats: { pj: number; goals: number; pen: number; assists: number; yellows: number; reds: number; conceded: number; suspended: number };
+  sanctions: { reason: string; matches: number; remaining: number; startRound: number | null; notes: string | null }[];
+  history: PlayerHistory[];
+};
+export async function getPlayer(id: number): Promise<PlayerCard | null> {
+  if (!Number.isFinite(id)) return null;
+  try {
+    const res = await fetch(`${LEAGUE_API_URL}/api/public/player/${id}`, { next: { revalidate: 300 } });
+    if (!res.ok) return null;
+    return (await res.json()) as PlayerCard;
+  } catch {
+    return null;
+  }
+}
+
 export const isMine = (f: Feed, m: Match) => m.home.id === f.team.id;
 export const played = (m: Match) => m.status === "played" || m.status === "walkover";
 export function outcome(f: Feed, m: Match): "W" | "D" | "L" | null {
@@ -55,7 +77,7 @@ export function myScorers(m: Match): Scorer[] {
   }
   return out;
 }
-export const playerUrl = (id: number | null) => (id ? `${LEAGUE_URL}/jugador/${id}` : null);
+export const playerUrl = (id: number | null, lang?: string) => (id ? (lang ? `/${lang}/jugador/${id}` : `${LEAGUE_URL}/jugador/${id}`) : null);
 /** "Miquel Ballesté Da Silva" → "M. Ballesté" */
 export const shortName = (full: string) => { const p = full.trim().split(/\s+/); return p.length > 1 ? `${p[0][0]}. ${p[1]}` : full; };
 export const initials = (t: TeamInfo) => t.short?.slice(0, 3).toUpperCase() ?? t.name.split(/\s+/).filter((w) => /^[A-ZÀ-Ü]/.test(w)).map((w) => w[0]).join("").slice(0, 3).toUpperCase();

@@ -378,3 +378,32 @@ a.rcard-sc, .rcard a.sc { text-decoration: none; }
 .scorer > span, .rcard .scr .lst > span > span { display: inline; }
 .scorer > span > span > span, .rcard .scr .lst > span > span > span > span { white-space: nowrap; }
 .rcard .scr .lst > span { display: inline-flex; gap: 6px; align-items: baseline; }
+
+/* player card */
+.h-page .jout { color: transparent; -webkit-text-stroke: 2px #fff; }
+.btn.white { background: transparent; border-color: #fff; color: #fff; }
+.btn.white:hover { background: #fff; color: var(--green-dark); }
+.jcard > * { min-width: 0; }
+.jcard { display: grid; grid-template-columns: minmax(220px, 300px) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); padding-top: clamp(28px, 4vw, 48px); padding-bottom: clamp(56px, 7vw, 104px); align-items: start; }
+.jphoto .ph { position: relative; aspect-ratio: 1 / 1; background: var(--green-light); background-size: cover; background-position: center top; border-top: 4px solid var(--green); }
+.jphoto .ph .sil { position: absolute; inset: 0; display: flex; align-items: flex-end; justify-content: center; }
+.jphoto .ph .sil svg { width: 60%; height: auto; opacity: .35; fill: var(--green); }
+.jphoto .num { position: absolute; top: 12px; left: 14px; height: clamp(44px, 5vw, 64px); color: var(--green); display: flex; gap: 3px; }
+.jphoto .meta { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 12px; font-family: "Barlow Condensed"; font-weight: 700; font-size: 16px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.jphoto .meta .pos { color: var(--green); }
+.jgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; }
+.jgrid > div { background: var(--paper-2); padding: 14px 16px; border-top: 3px solid var(--green); }
+.jgrid > div.warn { border-top-color: var(--card-red); }
+.jgrid b { display: block; font-family: "Barlow Condensed"; font-weight: 800; font-size: clamp(32px, 3vw, 44px); line-height: 1; color: var(--green-dark); }
+.jgrid b em { font-style: normal; font-size: .5em; color: var(--muted); }
+.jgrid small { display: block; margin-top: 6px; font-family: "Barlow Condensed"; font-weight: 700; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.jgrid small .cardico { margin-right: 6px; vertical-align: -1px; }
+.jm { display: inline-flex; align-items: center; gap: 8px; color: inherit; text-decoration: none; white-space: nowrap; }
+.jm:hover { color: var(--green); text-decoration: none; }
+.jm > span { display: inline-flex; align-items: center; gap: 6px; }
+.jm .me { font-weight: 700; }
+.jm .sc { font-family: "Barlow Condensed"; font-weight: 800; font-size: 18px; color: var(--green-dark); padding: 0 4px; }
+@media (max-width: 720px) {
+  .jcard { grid-template-columns: minmax(0, 1fr); }
+  .jphoto { max-width: 300px; }
+}

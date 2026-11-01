@@ -63,7 +63,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
                   <div style={{ borderTop: "1px solid var(--line-2)", paddingTop: 10 }}>
                     <div className="scorers-h">{t.scorers} · {CLUB.shortName}</div>
                     <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
-                      {myScorers(last).map((s) => <ScorerLine key={s.name} s={s} className="scorer" />)}
+                      {myScorers(last).map((s) => <ScorerLine key={s.name} s={s} className="scorer" lang={lang} />)}
                     </div>
                   </div>
                 )}
@@ -120,7 +120,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
                 <div className="txt">
                   <div className="n">{top.goals}</div>
                   <div>
-                    <div className="name">{displayName(top)}</div>
+                    <div className="name"><Link className="pl" href={`/${lang}/jugador/${top.id}`}>{displayName(top)}</Link></div>
                     <div className="meta">{feed.team.name}{top.dorsal != null ? ` · #${top.dorsal}` : ""} · {t.goals}</div>
                   </div>
                 </div>
@@ -130,7 +130,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
                 {rest.map((p, i) => (
                   <div key={p.id} className="srow">
                     <span className="rk">{i + 2}</span>
-                    <span className="nm"><span style={{ fontWeight: 600 }}>{displayName(p)}</span><small>{p.assists} {t.a.toLowerCase()}</small></span>
+                    <span className="nm"><Link className="pl" href={`/${lang}/jugador/${p.id}`} style={{ fontWeight: 600 }}>{displayName(p)}</Link><small>{p.assists} {t.a.toLowerCase()}</small></span>
                     <span className="g">{p.goals}</span>
                   </div>
                 ))}
