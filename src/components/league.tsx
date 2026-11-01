@@ -5,7 +5,7 @@ import { localCrest } from "@/content/crests";
 
 /** "A. Andreev  43' (J. L. Coloma), 65' (p)" with names linking to the league player card. */
 export function ScorerLine({ s, className, lang }: { s: Scorer; className?: string; lang: Lang }) {
-  const PL = ({ id, name }: { id: number | null; name: string }) => { const u = playerUrl(id, lang); return u ? <Link className="pl" href={u}>{name}</Link> : <>{name}</>; };
+  const PL = ({ id, name }: { id: number | null; name: string }) => { const u = playerUrl(id, lang); return u ? <Link className="plk" href={u}>{name}</Link> : <>{name}</>; };
   const shown = s.goals.filter((g) => g.minute != null || g.pen || g.assist);
   const parts = shown.map((g, i) => (
     <span key={i}>{i > 0 ? ", " : ""}<span>{g.minute != null ? `${g.minute}'` : ""}{g.pen ? (g.minute != null ? " (p)" : "(p)") : ""}{g.assist ? <>{g.minute != null || g.pen ? " " : ""}(<PL id={g.assist.id} name={g.assist.name} />)</> : null}</span></span>

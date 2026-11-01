@@ -41,7 +41,7 @@ export default async function Equip({ params }: { params: Promise<{ lang: string
               {stats.map((p) => (
                 <tr key={p.id}>
                   <td className="l" style={{ fontFamily: "Barlow Condensed", fontWeight: 800, fontSize: 20, color: "var(--green)" }}>{p.dorsal ?? ""}</td>
-                  <td className="l" style={{ fontWeight: 600 }}><Link className="pl" href={`/${lang}/jugador/${p.id}`}>{displayName(p)}</Link>{p.suspended > 0 && <span className="tag" style={{ marginLeft: 8, background: "var(--card-red)", color: "#fff", fontSize: 11 }}>{t.suspended}</span>}</td>
+                  <td className="l" style={{ fontWeight: 600 }}><Link className="plk" href={`/${lang}/jugador/${p.id}`}>{displayName(p)}</Link>{p.suspended > 0 && <span className="tag" style={{ marginLeft: 8, background: "var(--card-red)", color: "#fff", fontSize: 11 }}>{t.suspended}</span>}</td>
                   <td className="l" style={{ color: "var(--muted)" }}>{posLabel(lang, p.position)}</td>
                   <td>{p.pj}</td>
                   <td style={{ fontFamily: "Barlow Condensed", fontWeight: 800, fontSize: 20, color: "var(--green-dark)" }}>{p.goals}</td>

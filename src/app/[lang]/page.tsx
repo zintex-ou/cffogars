@@ -120,7 +120,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
                 <div className="txt">
                   <div className="n">{top.goals}</div>
                   <div>
-                    <div className="name"><Link className="pl" href={`/${lang}/jugador/${top.id}`}>{displayName(top)}</Link></div>
+                    <div className="name"><Link className="plk" href={`/${lang}/jugador/${top.id}`}>{displayName(top)}</Link></div>
                     <div className="meta">{feed.team.name}{top.dorsal != null ? ` · #${top.dorsal}` : ""} · {t.goals}</div>
                   </div>
                 </div>
@@ -130,7 +130,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
                 {rest.map((p, i) => (
                   <div key={p.id} className="srow">
                     <span className="rk">{i + 2}</span>
-                    <span className="nm"><Link className="pl" href={`/${lang}/jugador/${p.id}`} style={{ fontWeight: 600 }}>{displayName(p)}</Link><small>{p.assists} {t.a.toLowerCase()}</small></span>
+                    <span className="nm"><Link className="plk" href={`/${lang}/jugador/${p.id}`} style={{ fontWeight: 600 }}>{displayName(p)}</Link><small>{p.assists} {t.a.toLowerCase()}</small></span>
                     <span className="g">{p.goals}</span>
                   </div>
                 ))}
