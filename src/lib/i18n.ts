@@ -100,6 +100,7 @@ const D = {
   palmares: ["Palmarés", "Palmarès", "Honours"],
   followUs: ["Síguenos", "Segueix-nos", "Follow us"],
   contact: ["Contacto", "Contacte", "Contact"],
+  devBy: ["Desarrollado por", "Desenvolupat per", "Developed by"],
   officialFooter: ["Datos oficiales de la liga", "Dades oficials de la lliga", "Official league data"],
   win: ["Victoria", "Victòria", "Win"], draw: ["Empate", "Empat", "Draw"], loss: ["Derrota", "Derrota", "Loss"],
   wins: ["Victorias", "Victòries", "Wins"], draws: ["Empates", "Empats", "Draws"], losses: ["Derrotas", "Derrotes", "Losses"],

@@ -52,9 +52,9 @@ export const PALMARES: { n: Tri; label: Tri; sub: string }[] = [
 
 /** Club staff not in the league DB (role keys: entrenador, segon, president, fisio, delegat). Delegates come from the league automatically. */
 export const STAFF: { name: string; role: string; photo?: string }[] = [
-  { name: "Ievgen Zinchenko", role: "president" },
+  { name: "Ievgen Zinchenko", role: "president", photo: "/images/staff-zinchenko.jpg" },
   { name: "Viktor Tiurin", role: "director" },
-  { name: "Oleksandr Padaliuk", role: "entrenador" },
+  { name: "Oleksandr Padaliuk", role: "entrenador", photo: "/images/staff-padaliuk.jpg" },
 ];
 
 /** Team photos by season (shown on the history page). */

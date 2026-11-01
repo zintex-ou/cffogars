@@ -61,6 +61,7 @@ export default function Footer({ t, lang, leagueUrl, leagueHost, logo }: { t: Di
       <div className="wrap bottom">
         <a href={leagueUrl} target="_blank" rel="noopener">{t.officialFooter}</a>
         <span>© {new Date().getFullYear()} {CLUB.name}</span>
+        <a className="credit" href="https://zintex.dev" target="_blank" rel="noopener">{t.devBy} <img src="/zintex.svg" alt="Zintex" /></a>
       </div>
     </footer>
   );
